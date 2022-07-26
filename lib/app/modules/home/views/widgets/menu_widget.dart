@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:posyandu_app/app/modules/balita/views/balita_view.dart';
 import 'package:posyandu_app/app/utils/theme/fonts_style.dart';
 
 class MenuWidget extends StatelessWidget {
@@ -27,9 +29,11 @@ class MenuWidget extends StatelessWidget {
             runAlignment: WrapAlignment.start,
             children: [
               ItemMenuCard(
-                onTap: () {},
+                onTap: () {
+                  Get.to(BalitaView());
+                },
                 imagePath: 'assets/images/baby.png',
-                title: 'Balita',
+                title: 'Balitasss',
               ),
               ItemMenuCard(
                 onTap: () {},
@@ -93,31 +97,37 @@ class ItemMenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    return Container(
-      width: screenWidth / 3 - 15,
-      height: 110,
-      decoration: BoxDecoration(
-          color: Colors.grey.shade200, borderRadius: BorderRadius.circular(12)),
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 60,
-            width: 60,
-            child: Image.asset(
-              imagePath,
-              height: 50,
+    return InkWell(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        width: screenWidth / 3 - 15,
+        height: 110,
+        decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(12)),
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 60,
+              width: 60,
+              child: Image.asset(
+                imagePath,
+                height: 50,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          Text(
-            title,
-            style: primaryTextStyle,
-          )
-        ],
+            const SizedBox(
+              height: 4,
+            ),
+            Text(
+              title,
+              style: primaryTextStyle,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -5,21 +5,50 @@ import 'package:http/http.dart' as http;
 import 'package:posyandu_app/app/utils/helpers/http_request_error_helper.dart';
 
 class HttpRequestHelper {
-  @override
   Future<http.Response> deleteRequest(
-      {required String url, required Map<String, String> headers}) {
-    // TODO: implement deleteRequest
-    throw UnimplementedError();
+      {required String url, required Map<String, String> headers}) async {
+    Uri address = Uri.parse(url);
+    try {
+      return await http
+          .delete(
+        address,
+        headers: headers,
+      )
+          .timeout(const Duration(seconds: 12), onTimeout: () {
+        return httpRequestErrorHelper(
+            httpMethod: 'DELETE', error: 'Koneksi keserver habis', url: url);
+      });
+    } on SocketException {
+      return httpRequestErrorHelper(
+          httpMethod: 'DELETE', error: 'Koneksi internet mati', url: url);
+    } catch (e) {
+      return httpRequestErrorHelper(
+          httpMethod: 'DELETE', error: 'Server sedang sibuk', url: url);
+    }
   }
 
-  @override
   Future<http.Response> getRequest(
-      {required String url, required Map<String, String> headers}) {
-    // TODO: implement getRequest
-    throw UnimplementedError();
+      {required String url, required Map<String, String> headers}) async {
+    Uri address = Uri.parse(url);
+    try {
+      return await http
+          .get(
+        address,
+        headers: headers,
+      )
+          .timeout(const Duration(seconds: 12), onTimeout: () {
+        return httpRequestErrorHelper(
+            httpMethod: 'GET', error: 'Koneksi keserver habis', url: url);
+      });
+    } on SocketException {
+      return httpRequestErrorHelper(
+          httpMethod: 'GET', error: 'Koneksi internet mati', url: url);
+    } catch (e) {
+      return httpRequestErrorHelper(
+          httpMethod: 'GET', error: 'Server sedang sibuk', url: url);
+    }
   }
 
-  @override
   Future<http.Response> multipartDeleteRequest(
       {required String url,
       required Map<String, String> headers,
@@ -28,7 +57,6 @@ class HttpRequestHelper {
     throw UnimplementedError();
   }
 
-  @override
   Future<http.Response> multipartPostRequest(
       {required String url,
       required File image,
@@ -39,7 +67,6 @@ class HttpRequestHelper {
     throw UnimplementedError();
   }
 
-  @override
   Future<http.Response> multipartPostRequestWithoutImage(
       {required String url,
       required Map<String, String> headers,
@@ -48,7 +75,6 @@ class HttpRequestHelper {
     throw UnimplementedError();
   }
 
-  @override
   Future<http.Response> postRequest(
       {required String url, required Map<String, String> headers, body}) async {
     Uri address = Uri.parse(url);
@@ -65,6 +91,25 @@ class HttpRequestHelper {
     } catch (e) {
       return httpRequestErrorHelper(
           httpMethod: 'POST', error: 'Server sedang sibuk', url: url);
+    }
+  }
+
+  Future<http.Response> putRequest(
+      {required String url, required Map<String, String> headers, body}) async {
+    Uri address = Uri.parse(url);
+    try {
+      return await http
+          .put(address, headers: headers, body: jsonEncode(body))
+          .timeout(const Duration(seconds: 12), onTimeout: () {
+        return httpRequestErrorHelper(
+            httpMethod: 'PUT', error: 'Koneksi keserver habis', url: url);
+      });
+    } on SocketException {
+      return httpRequestErrorHelper(
+          httpMethod: 'PUT', error: 'Koneksi internet mati', url: url);
+    } catch (e) {
+      return httpRequestErrorHelper(
+          httpMethod: 'PUT', error: 'Server sedang sibuk', url: url);
     }
   }
 }

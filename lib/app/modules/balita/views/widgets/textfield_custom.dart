@@ -58,7 +58,7 @@ class TextfieldCustom extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 24,
+          height: 12,
         ),
       ],
     );

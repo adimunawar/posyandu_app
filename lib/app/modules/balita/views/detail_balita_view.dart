@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:posyandu_app/app/data/models/balita.dart';
 import 'package:posyandu_app/app/modules/balita/controllers/balita_controller.dart';
 import 'package:posyandu_app/app/modules/balita/views/balita_view.dart';
@@ -13,6 +14,7 @@ class DetailBalitaView extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    final rangeFormat = DateFormat('dd/MM/yyyy');
     final controller = BalitaController();
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +42,7 @@ class DetailBalitaView extends GetView {
             "Tanggal lahir ",
           ),
           trailing: Text(
-            balita.birthDate.toString(),
+            rangeFormat.format(balita.birthDate!),
             style: const TextStyle(fontWeight: FontWeight.w600),
           ),
         ),

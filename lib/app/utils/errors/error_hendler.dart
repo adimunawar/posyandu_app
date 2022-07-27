@@ -3,7 +3,7 @@ import 'package:posyandu_app/app/utils/errors/exceptions.dart';
 import 'package:posyandu_app/app/utils/helpers/dialog_helper.dart';
 
 void handleError(error) {
-  // hideLoading();
+  hideLoading();
   if (error is ServerException) {
     var message = error.message;
     DialogHelper.showErroDialog(description: message);

@@ -81,7 +81,7 @@ class HttpRequestHelper {
     try {
       return await http
           .post(address, headers: headers, body: jsonEncode(body))
-          .timeout(const Duration(seconds: 12), onTimeout: () {
+          .timeout(const Duration(seconds: 16), onTimeout: () {
         return httpRequestErrorHelper(
             httpMethod: 'POST', error: 'Koneksi keserver habis', url: url);
       });

@@ -10,13 +10,17 @@ import 'package:posyandu_app/app/modules/balita/views/form_balita_view.dart';
 import '../controllers/balita_controller.dart';
 
 class BalitaView extends GetView<BalitaController> {
+  const BalitaView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final controller = BalitaController();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
-          Get.to(const FormBalitaView());
+          Get.to(FormBalitaView(
+            balita: Balita.isEmpty(),
+          ));
         }),
         child: const Icon(Icons.add),
       ),

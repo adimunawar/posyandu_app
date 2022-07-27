@@ -5,12 +5,16 @@ class TextfieldCustom extends StatelessWidget {
   final TextInputType inputType;
   final String nama;
   final String namaTextEdit;
+  final String initialValue;
   final FormFieldValidator<String>? validator;
+  final Function(String) onSaved;
   const TextfieldCustom(
       {Key? key,
       required this.inputType,
       required this.nama,
       required this.namaTextEdit,
+      required this.onSaved,
+      this.initialValue = '',
       this.validator,
       this.isReadOnly = false})
       : super(key: key);
@@ -30,16 +34,20 @@ class TextfieldCustom extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: TextFormField(
+            initialValue: initialValue != '' ? initialValue : null,
             keyboardType: inputType,
-
             validator: validator,
             readOnly: isReadOnly,
+
             // style: primaryTextStyle.copyWith(
             //     fontSize: 15,
             //     fontWeight: medium,
             //     color: isReadOnly
             //         ? ColorPlatte.greyTextColor
             //         : ColorPlatte.dartkText),
+            onSaved: (val) {
+              onSaved(val!);
+            },
             decoration: InputDecoration(
                 hintText: "Masukkan $nama",
                 contentPadding:

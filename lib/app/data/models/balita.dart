@@ -8,6 +8,9 @@ class Balita {
     this.height,
     this.gender,
     this.category,
+    this.birthPlace,
+    this.motherName,
+    this.createdAt,
   });
 
   int? id;
@@ -17,8 +20,23 @@ class Balita {
   int? weight;
   int? height;
   String? gender;
-  int? category;
+  String? category;
+  String? birthPlace;
+  String? motherName;
+  DateTime? createdAt;
 
+  Balita.isEmpty() {
+    id = 0;
+    childName = '';
+    idStaf = 0;
+    birthDate = DateTime.now();
+    weight = 0;
+    height = 0;
+    category = '';
+    gender = '';
+    motherName = '';
+    birthPlace = '';
+  }
   factory Balita.fromJson(Map<String, dynamic> json) => Balita(
         id: json["id"],
         childName: json["child_name"],
@@ -28,6 +46,8 @@ class Balita {
         height: json["height"],
         gender: json["gender"],
         category: json["category"],
+        motherName: json['mother_name'],
+        birthPlace: json['birth_place'],
       );
 
   Map<String, dynamic> toJson() => {

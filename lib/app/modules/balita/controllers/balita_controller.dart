@@ -18,6 +18,50 @@ class BalitaController extends GetxController {
     return results;
   }
 
+  Future<bool> hapusBalita(int id) async {
+    showLoading();
+    bool result = false;
+    await BalitaRepository.hapusBalita(id).then((value) {
+      if (value) {
+        hideLoading();
+        result = value;
+        getListBalita();
+      }
+    }).onError((error, stackTrace) {
+      handleError(error);
+    });
+    return result;
+  }
+
+  Future<bool> tambahBalita(Balita balita) async {
+    showLoading('Mohon tunggu');
+    bool result = false;
+    await BalitaRepository.tambahBalita(balita, Constanta.userId).then((value) {
+      if (value) {
+        hideLoading();
+        result = value;
+        getListBalita();
+      }
+    });
+    return result;
+  }
+
+  Future<bool> ubahBalita(
+    Balita balita,
+  ) async {
+    bool result = false;
+    showLoading('Mohon tunggu');
+    await BalitaRepository.ubahBalita(balita, Constanta.userId).then((value) {
+      if (value) {
+        result = value;
+        getListBalita();
+      }
+    }).onError((error, stackTrace) {
+      handleError(error);
+    });
+    return result;
+  }
+
   final count = 0.obs;
   @override
   void onInit() {

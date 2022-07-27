@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:posyandu_app/app/data/models/balita.dart';
+import 'package:posyandu_app/app/modules/balita/controllers/balita_controller.dart';
+import 'package:posyandu_app/app/modules/balita/views/balita_view.dart';
 import 'package:posyandu_app/app/modules/balita/views/form_balita_view.dart';
+import 'package:posyandu_app/app/utils/helpers/dialog_helper.dart';
 
 class DetailBalitaView extends GetView {
   final Balita balita;
@@ -10,6 +13,7 @@ class DetailBalitaView extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    final controller = BalitaController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Deatail Balita'),
@@ -76,7 +80,8 @@ class DetailBalitaView extends GetView {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InkWell(
-              onTap: (() => Get.to(const FormBalitaView(
+              onTap: (() => Get.to(FormBalitaView(
+                    balita: balita,
                     isEdit: true,
                   ))),
               child: Container(
@@ -84,21 +89,38 @@ class DetailBalitaView extends GetView {
                     color: Colors.blue, borderRadius: BorderRadius.circular(8)),
                 height: 40,
                 width: MediaQuery.of(context).size.width / 2 - 30,
-                child: const Center(
+                child: Center(
                   child: Text(
                     "Edit",
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        Get.textTheme.bodyMedium!.copyWith(color: Colors.white),
                   ),
                 ),
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(8)),
-              height: 40,
-              width: MediaQuery.of(context).size.width / 2 - 30,
-              child: const Center(
-                child: Text("hapus"),
+            InkWell(
+              onTap: () {
+                DialogHelper.confirmDialod(
+                  onTap: () {
+                    controller.hapusBalita(balita.id!).then((value) {
+                      if (value) {
+                        Get.to(BalitaView());
+                      }
+                    });
+                  },
+                  title: 'Hapus',
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.red, borderRadius: BorderRadius.circular(8)),
+                height: 40,
+                width: MediaQuery.of(context).size.width / 2 - 30,
+                child: Center(
+                  child: Text("hapus",
+                      style: Get.textTheme.bodyMedium!
+                          .copyWith(color: Colors.white)),
+                ),
               ),
             ),
           ],

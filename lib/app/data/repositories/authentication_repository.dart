@@ -2,12 +2,15 @@ import 'dart:convert';
 import 'package:posyandu_app/app/utils/errors/exceptions.dart';
 import 'package:posyandu_app/app/utils/helpers/http_request_helper.dart';
 
+import '../../utils/constants.dart';
+import '../models/user.dart';
+
 class AuthRepository {
   HttpRequestHelper server = HttpRequestHelper();
 
-  Future<String> loginWithUsernamePassword(
+  Future<User> loginWithUsernamePassword(
       String username, String password) async {
-    String url = 'http://192.168.43.39:8081/users/login';
+    String url = '${Constanta.baseUrl}users/login';
     Map<String, String> headers = {'Accept': 'application/json'};
     Map<String, String> body = {
       'email': username,
@@ -23,8 +26,8 @@ class AuthRepository {
       );
     }
     if (result['status']) {
-      String token = result['data'][0]['token'];
-      return token;
+      User user = User.fromJson(result['data']);
+      return user;
     } else {
       throw ServerException(
         message: result['message'] ?? 'login Error',

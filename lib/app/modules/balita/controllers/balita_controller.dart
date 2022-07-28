@@ -5,6 +5,42 @@ import 'package:posyandu_app/app/utils/constants.dart';
 import 'package:posyandu_app/app/utils/errors/error_hendler.dart';
 
 class BalitaController extends GetxController {
+  var dataBalita = <Balita>[
+    Balita(
+        id: 0,
+        childName: 'Pacan',
+        idStaf: 0,
+        birthDate: DateTime.now(),
+        weight: 3,
+        height: 3,
+        gender: 'Laki-laki',
+        category: 'Sesar',
+        birthPlace: 'Cikarang',
+        motherName: 'Lena',
+        createdAt: DateTime.now(),
+        helper: 'yuli')
+  ].obs;
+
+  addBalitaDummy(Balita balita) async {
+    balita.id = dataBalita.length;
+    dataBalita.add(balita);
+
+    update();
+  }
+
+  updateBalitaDummy(Balita balita) async {
+    var data = dataBalita.singleWhere(
+      (element) => element.id == balita.id,
+    );
+    data = balita;
+    update();
+  }
+
+  hapusBalitaDummy(Balita balita) async {
+    dataBalita.removeAt(balita.id! - 1);
+    update();
+  }
+
   Future<List<Balita>> getListBalita() async {
     List<Balita> results = [];
     await BalitaRepository().getBalita(Constanta.userId).then((value) {

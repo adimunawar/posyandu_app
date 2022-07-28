@@ -15,6 +15,7 @@ class BalitaView extends GetView<BalitaController> {
   @override
   Widget build(BuildContext context) {
     final controller = BalitaController();
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
@@ -25,7 +26,7 @@ class BalitaView extends GetView<BalitaController> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: const Text('Balita'),
+        title: Text("Kelola Balita"),
         centerTitle: true,
       ),
       body: FutureBuilder<List<Balita>>(
@@ -39,6 +40,7 @@ class BalitaView extends GetView<BalitaController> {
                 child: Text("data kosong"),
               );
             }
+
             return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: ((context, index) => InkWell(

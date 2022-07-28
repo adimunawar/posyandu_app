@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:posyandu_app/app/data/models/balita.dart';
@@ -11,69 +10,78 @@ import 'package:posyandu_app/app/utils/helpers/dialog_helper.dart';
 class DetailBalitaView extends GetView {
   final Balita balita;
   const DetailBalitaView({Key? key, required this.balita}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final rangeFormat = DateFormat('dd/MM/yyyy');
+    final tanggalFormat = DateFormat('dd/MM/yyyy');
     final controller = BalitaController();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Deatail Balita'),
+        title: const Text('Detail Balita'),
         centerTitle: true,
       ),
-      body: Column(mainAxisSize: MainAxisSize.min, children: [
-        const SizedBox(
-          height: 8,
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        ListTile(
-          leading: const Text(
-            "Nama Balita ",
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          const SizedBox(
+            height: 12,
           ),
-          trailing: Text(
-            balita.childName!,
-            style: const TextStyle(fontWeight: FontWeight.w600),
+          ListTile(
+            leading: const Text(
+              "Nama Balita ",
+            ),
+            trailing: Text(
+              balita.childName!,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
-        ),
-        ListTile(
-          leading: const Text(
-            "Tanggal lahir ",
+          ListTile(
+            minVerticalPadding: 0,
+            leading: const Text(
+              "Tempat Lahir ",
+            ),
+            trailing: Text(
+              balita.birthPlace!,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
-          trailing: Text(
-            rangeFormat.format(balita.birthDate!),
-            style: const TextStyle(fontWeight: FontWeight.w600),
+          ListTile(
+            leading: const Text(
+              "Tanggal lahir ",
+            ),
+            trailing: Text(
+              tanggalFormat.format(balita.birthDate!),
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
-        ),
-        const ListTile(
-          leading: Text(
-            "Tempat lahir ",
+          ListTile(
+            leading: const Text(
+              "Jenis Kelamin",
+            ),
+            trailing: Text(
+              balita.gender!,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
-          trailing: Text(
-            "tasikmalaya",
-            style: TextStyle(fontWeight: FontWeight.w600),
+          ListTile(
+            leading: const Text(
+              "nama Ibu",
+            ),
+            trailing: Text(
+              balita.motherName!,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
-        ),
-        ListTile(
-          leading: const Text(
-            "Jenis Kelamin",
+          ListTile(
+            leading: const Text(
+              "Tanggal pendatan ",
+            ),
+            trailing: Text(
+              tanggalFormat.format(balita.createdAt ?? DateTime.now()),
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
-          trailing: Text(
-            balita.gender!,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
-        ),
-        const ListTile(
-          leading: Text(
-            "nama Ibu",
-          ),
-          trailing: Text(
-            "Lilis",
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-        ),
-      ]),
+        ]),
+      ),
       bottomSheet: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         color: Colors.white,
@@ -106,7 +114,7 @@ class DetailBalitaView extends GetView {
                   onTap: () {
                     controller.hapusBalita(balita.id!).then((value) {
                       if (value) {
-                        Get.to(BalitaView());
+                        Get.to(const BalitaView());
                       }
                     });
                   },

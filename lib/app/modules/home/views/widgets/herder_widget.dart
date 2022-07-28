@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:posyandu_app/app/utils/constants.dart';
 import 'package:posyandu_app/app/utils/theme/fonts_style.dart';
+
+import '../../../balita/views/balita_view.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({
@@ -23,7 +27,7 @@ class HeaderWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Selamat data Adi",
+                  "Selamat datang ${Constanta.user.name}",
                   style: primaryTextStyle.copyWith(
                       fontSize: 16, fontWeight: medium, color: Colors.white),
                 ),
@@ -46,29 +50,43 @@ class HeaderWidget extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Card(
-                      child: Container(
-                        width: screenWidth / 2 - 20,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [Text("8"), Text("Balita")],
+                    InkWell(
+                      onTap: () {
+                        Get.to(const BalitaView());
+                      },
+                      child: Card(
+                        child: Container(
+                          width: screenWidth / 2 - 20,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.white,
+                          ),
+                          child: Column(
+                            children: [
+                              Text("${Constanta.user.dataKader!.totalBalita}"),
+                              const Text("Balita")
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    Card(
-                      child: Container(
-                        width: screenWidth / 2 - 20,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [Text("8"), Text("Ibu Hamil")],
+                    InkWell(
+                      onTap: () {},
+                      child: Card(
+                        child: Container(
+                          width: screenWidth / 2 - 20,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.white,
+                          ),
+                          child: Column(
+                            children: [
+                              Text("${Constanta.user.dataKader!.totalIbu}"),
+                              const Text("Ibu Hamil")
+                            ],
+                          ),
                         ),
                       ),
                     ),

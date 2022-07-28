@@ -25,6 +25,7 @@ class AuthenticationView extends GetView<AuthenticationController> {
               height: 30,
             ),
             TextField(
+              controller: controller.userNameController,
               decoration: InputDecoration(
                   hintText: 'Username', hintStyle: primaryTextStyle),
             ),
@@ -32,6 +33,7 @@ class AuthenticationView extends GetView<AuthenticationController> {
               height: 16,
             ),
             TextField(
+              controller: controller.passwordController,
               decoration: InputDecoration(
                   hintText: 'Password', hintStyle: primaryTextStyle),
             ),
@@ -43,8 +45,11 @@ class AuthenticationView extends GetView<AuthenticationController> {
               borderRadius: BorderRadius.circular(8),
               child: InkWell(
                 onTap: (() {
-                  // controller.login("adi@gmail.com", '123');
-                  Get.to(HomeView());
+                  if (controller.userNameController.text != '' &&
+                      controller.passwordController.text != '') {
+                    controller.login(controller.userNameController.text,
+                        controller.passwordController.text);
+                  }
                 }),
                 child: Container(
                   width: double.infinity,

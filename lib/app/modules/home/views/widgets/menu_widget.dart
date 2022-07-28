@@ -30,51 +30,51 @@ class MenuWidget extends StatelessWidget {
             children: [
               ItemMenuCard(
                 onTap: () {
-                  Get.to(BalitaView());
+                  Get.to(const BalitaView());
                 },
                 imagePath: 'assets/images/baby.png',
-                title: 'Balitasss',
-              ),
-              ItemMenuCard(
-                onTap: () {},
-                imagePath: 'assets/images/mother.png',
                 title: 'Balita',
               ),
               ItemMenuCard(
                 onTap: () {},
                 imagePath: 'assets/images/mother_2.png',
-                title: 'Balita',
+                title: 'Ibu',
               ),
               ItemMenuCard(
                 onTap: () {},
-                imagePath: 'assets/images/baby.png',
-                title: 'Balita',
-              ),
-              ItemMenuCard(
-                onTap: () {},
-                imagePath: 'assets/images/mother.png',
-                title: 'Balita',
-              ),
-              ItemMenuCard(
-                onTap: () {},
-                imagePath: 'assets/images/mother_2.png',
-                title: 'Balita',
-              ),
-              ItemMenuCard(
-                onTap: () {},
-                imagePath: 'assets/images/baby.png',
-                title: 'Balita',
+                imagePath: 'assets/images/pregnant.png',
+                title: 'Ibu Hamil',
               ),
               ItemMenuCard(
                 onTap: () {},
                 imagePath: 'assets/images/mother.png',
-                title: 'Balita',
+                title: 'Penimbangan',
               ),
               ItemMenuCard(
                 onTap: () {},
-                imagePath: 'assets/images/mother_2.png',
-                title: 'Balita',
+                imagePath: 'assets/images/injection.png',
+                title: 'Imunisasi',
               ),
+              ItemMenuCard(
+                onTap: () {},
+                imagePath: 'assets/images/baby-food.png',
+                title: 'Gizi',
+              ),
+              // ItemMenuCard(
+              //   onTap: () {},
+              //   imagePath: 'assets/images/baby.png',
+              //   title: 'Balita',
+              // ),
+              // ItemMenuCard(
+              //   onTap: () {},
+              //   imagePath: 'assets/images/mother.png',
+              //   title: 'Balita',
+              // ),
+              // ItemMenuCard(
+              //   onTap: () {},
+              //   imagePath: 'assets/images/mother_2.png',
+              //   title: 'Balita',
+              // ),
             ],
           ),
         ],
@@ -103,7 +103,7 @@ class ItemMenuCard extends StatelessWidget {
       },
       child: Container(
         width: screenWidth / 3 - 15,
-        height: 110,
+        height: 120,
         decoration: BoxDecoration(
             color: Colors.grey.shade200,
             borderRadius: BorderRadius.circular(12)),
@@ -122,9 +122,14 @@ class ItemMenuCard extends StatelessWidget {
             const SizedBox(
               height: 4,
             ),
-            Text(
-              title,
-              style: primaryTextStyle,
+            SizedBox(
+              width: 80,
+              child: Text(
+                title,
+                style: primaryTextStyle,
+                maxLines: 3,
+                textAlign: TextAlign.center,
+              ),
             )
           ],
         ),

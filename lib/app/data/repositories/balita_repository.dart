@@ -1,14 +1,13 @@
 import 'dart:convert';
-
 import 'package:posyandu_app/app/data/models/balita.dart';
 import 'package:posyandu_app/app/utils/constants.dart';
 import 'package:posyandu_app/app/utils/errors/exceptions.dart';
 import 'package:posyandu_app/app/utils/helpers/http_request_helper.dart';
-import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class BalitaRepository {
   static HttpRequestHelper server = HttpRequestHelper();
-
+  static var datetimeFormat = DateFormat('dd-MM-yyyy');
   Future<List<Balita>> getBalita(int id) async {
     String url = '${Constanta.baseUrl}childrens/getByStaf/$id';
     Map<String, String> headers = {'Accept': 'application/json'};
@@ -18,6 +17,7 @@ class BalitaRepository {
       headers: headers,
     );
     Map<String, dynamic> data = json.decode(response.body);
+
     if (data['status'] == null) {
       throw ServerException(
         message: 'Server Response Null, please contact Customer Service',
@@ -37,16 +37,20 @@ class BalitaRepository {
   }
 
   static Future<bool> tambahBalita(Balita balita, int stafId) async {
-    String url = 'http://192.168.43.39:8081/childrens/store';
+    String url = '${Constanta.baseUrl}childrens/store';
+
     var headers = {'Accept': 'application/json'};
     var body = {
       "child_name": balita.childName ?? "",
-      "birth_date": "2022-07-27",
+      "birth_date": balita.birthDate!.toIso8601String(),
       "weight": balita.weight,
       "height": balita.height,
-      "gender": "Laki-laki",
-      "category": 0,
-      "id_staf": stafId
+      "gender": balita.gender,
+      "category": balita.category,
+      "id_staf": stafId,
+      "mother_name": balita.motherName,
+      "birth_place": balita.birthPlace,
+      "helper": balita.helper,
     };
 
     bool results = false;
@@ -75,18 +79,24 @@ class BalitaRepository {
     Balita balita,
     int stafId,
   ) async {
-    String url = 'http://192.168.43.39:8081/childrens/update';
+    String url = '${Constanta.baseUrl}childrens/update';
+
     var headers = {'Accept': 'application/json'};
     var body = {
       "id": balita.id,
-      "child_name": balita.childName,
-      "birth_date": "2022-07-24",
+      "child_name": balita.childName ?? "",
+      "birth_date": balita.birthDate!.toIso8601String(),
       "weight": balita.weight,
       "height": balita.height,
       "gender": balita.gender,
-      "category": 0,
-      "id_staf": stafId
+      "category": balita.category,
+      "id_staf": stafId,
+      "mother_name": balita.motherName ?? "",
+      "birth_place": balita.birthPlace,
+      "helper": balita.helper,
     };
+    print(body);
+
     bool results = false;
     final response =
         await server.putRequest(url: url, headers: headers, body: body);

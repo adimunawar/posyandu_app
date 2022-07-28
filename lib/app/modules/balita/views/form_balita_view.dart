@@ -5,8 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:posyandu_app/app/data/models/balita.dart';
 import 'package:posyandu_app/app/modules/balita/views/balita_view.dart';
 import 'package:posyandu_app/app/modules/balita/views/widgets/textfield_custom.dart';
-import 'package:posyandu_app/app/utils/constants.dart';
-
 import '../../../utils/errors/error_hendler.dart';
 import '../controllers/balita_controller.dart';
 
@@ -62,9 +60,10 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                     });
                   },
                   validator: (val) =>
-                      val!.length > 1 ? null : 'tidak boleh kosong',
+                      val!.isNotEmpty ? null : 'tidak boleh kosong',
                 ),
                 TextfieldCustom(
+                  initialValue: balita!.birthPlace ?? "",
                   onSaved: (val) {
                     setState(() {
                       balita!.birthPlace = val;
@@ -74,15 +73,15 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                   nama: 'Tempat Lahir',
                   namaTextEdit: "Bayi",
                   validator: (val) =>
-                      val!.length > 1 ? null : 'tidak boleh kosong',
+                      val!.isNotEmpty ? null : 'tidak boleh kosong',
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Tanggal Lahir"),
-                      SizedBox(
+                      const Text("Tanggal Lahir"),
+                      const SizedBox(
                         height: 8,
                       ),
                       InkWell(
@@ -100,7 +99,7 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                           }
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
                           height: 45,
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -111,7 +110,7 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(rangeFormat.format(balita!.birthDate!)),
-                              Icon(Icons.calendar_month)
+                              const Icon(Icons.calendar_month)
                             ],
                           ),
                         ),
@@ -119,10 +118,11 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 TextfieldCustom(
+                  initialValue: balita!.motherName ?? "",
                   onSaved: (val) {
                     setState(() {
                       balita!.motherName = val;
@@ -132,56 +132,59 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                   nama: 'Nama Ibu',
                   namaTextEdit: "Bayi",
                   validator: (val) =>
-                      val!.length > 1 ? null : 'tidak boleh kosong',
+                      val!.isNotEmpty ? null : 'tidak boleh kosong',
                 ),
                 TextfieldCustom(
+                  initialValue: balita!.gender ?? "",
                   onSaved: (val) {
                     setState(() {
-                      balita!.motherName = val;
+                      balita!.gender = val;
                     });
                   },
                   inputType: TextInputType.text,
                   nama: 'Jenis Kelamin',
                   namaTextEdit: "Bayi",
                   validator: (val) =>
-                      val!.length > 1 ? null : 'tidak boleh kosong',
+                      val!.isNotEmpty ? null : 'tidak boleh kosong',
                 ),
                 TextfieldCustom(
+                  initialValue: balita!.helper ?? "",
                   onSaved: (val) {
                     setState(() {
-                      balita!.motherName = val;
+                      balita!.helper = val;
                     });
                   },
                   inputType: TextInputType.text,
                   nama: 'Penolong',
                   namaTextEdit: "Bayi",
                   validator: (val) =>
-                      val!.length > 1 ? null : 'tidak boleh kosong',
+                      val!.isNotEmpty ? null : 'tidak boleh kosong',
                 ),
                 TextfieldCustom(
+                  initialValue: balita!.category ?? "",
                   onSaved: (val) {
                     setState(() {
-                      balita!.motherName = val;
+                      balita!.category = val;
                     });
                   },
                   inputType: TextInputType.text,
                   nama: 'Kelahiran',
                   namaTextEdit: "Bayi",
                   validator: (val) =>
-                      val!.length > 1 ? null : 'tidak boleh kosong',
+                      val!.isNotEmpty ? null : 'tidak boleh kosong',
                 ),
                 TextfieldCustom(
                   initialValue: widget.balita.weight.toString(),
                   onSaved: (val) {
                     setState(() {
-                      balita!.weight = int.parse(val);
+                      balita!.category = val;
                     });
                   },
                   inputType: TextInputType.number,
                   nama: 'Berat Badan',
                   namaTextEdit: "Bayi",
                   validator: (val) =>
-                      val!.length > 1 ? null : 'tidak boleh kosong',
+                      val!.isNotEmpty ? null : 'tidak boleh kosong',
                 ),
                 TextfieldCustom(
                   initialValue: widget.balita.height.toString(),
@@ -194,7 +197,7 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                   nama: 'Tinggi Badan',
                   namaTextEdit: "",
                   validator: (val) =>
-                      val!.length > 1 ? null : 'tidak boleh kosong',
+                      val!.isNotEmpty ? null : 'tidak boleh kosong',
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -203,21 +206,17 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                       final form = formKey.currentState;
                       if (form!.validate()) {
                         form.save();
-                        balita!.birthDate = DateTime.now();
-                        // balita!.id = Constanta.userId;
-                        balita!.gender = "Laki - laki";
-                        balita!.category = "Spontan";
                         if (widget.isEdit) {
                           balitaController.ubahBalita(balita!).then((value) {
                             if (value) {
                               Future.delayed(const Duration(seconds: 3), () {
                                 hideLoading();
-
                                 Get.off(const BalitaView());
                               });
                             }
                           });
                         } else {
+                          Get.to(const BalitaView());
                           balitaController.tambahBalita(balita!).then((value) {
                             if (value) {
                               Get.to(const BalitaView());
@@ -243,7 +242,7 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 )
               ],

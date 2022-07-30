@@ -1,36 +1,33 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:posyandu_app/app/data/models/balita.dart';
-import 'package:posyandu_app/app/modules/balita/views/detail_balita_view.dart';
-import 'package:posyandu_app/app/modules/balita/views/form_balita_view.dart';
 
-import '../controllers/balita_controller.dart';
+import '../../../data/models/ibu.dart';
+import '../controllers/ibu_controller.dart';
+import 'detail_ibu_view.dart';
+import 'form_ibu_view.dart';
 
-class BalitaView extends GetView<BalitaController> {
-  const BalitaView({Key? key}) : super(key: key);
+class IbuView extends GetView<IbuController> {
+  const IbuView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = BalitaController();
-
+    final controller = IbuController();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Kelola Ibu'),
+        centerTitle: true,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
-          Get.to(FormBalitaView(
-            balita: Balita.isEmpty(),
+          Get.to(FormIbuView(
+            ibu: Ibu.isEmpty(),
           ));
         }),
         child: const Icon(Icons.add),
       ),
-      appBar: AppBar(
-        title: const Text("Kelola Balita"),
-        centerTitle: true,
-      ),
-      body: FutureBuilder<List<Balita>>(
-          future: controller.getListBalita(),
+      body: FutureBuilder<List<Ibu>>(
+          future: controller.getListIbu(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -45,13 +42,13 @@ class BalitaView extends GetView<BalitaController> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: ((context, index) => InkWell(
                       onTap: () {
-                        Get.to(DetailBalitaView(balita: snapshot.data![index]));
+                        Get.to(DetailIbuView(ibu: snapshot.data![index]));
                       },
                       child: Card(
                         margin:
                             const EdgeInsets.only(top: 8, left: 8, right: 8),
                         child: ListTile(
-                          leading: Text(snapshot.data![index].childName!),
+                          leading: Text(snapshot.data![index].nama!),
                         ),
                       ),
                     )));

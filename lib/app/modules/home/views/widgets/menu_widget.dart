@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:posyandu_app/app/modules/balita/views/balita_view.dart';
 import 'package:posyandu_app/app/utils/theme/fonts_style.dart';
 
+import '../../../ibu/views/ibu_view.dart';
+import '../../../ibu_hamil/views/ibu_hamil_view.dart';
+
 class MenuWidget extends StatelessWidget {
   const MenuWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,12 +38,16 @@ class MenuWidget extends StatelessWidget {
                 title: 'Balita',
               ),
               ItemMenuCard(
-                onTap: () {},
+                onTap: () {
+                  Get.to(const IbuView());
+                },
                 imagePath: 'assets/images/mother_2.png',
                 title: 'Ibu',
               ),
               ItemMenuCard(
-                onTap: () {},
+                onTap: () {
+                  Get.to(const IbuHamilView());
+                },
                 imagePath: 'assets/images/pregnant.png',
                 title: 'Ibu Hamil',
               ),

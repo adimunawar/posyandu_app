@@ -1,19 +1,18 @@
 import 'dart:convert';
-import 'package:posyandu_app/app/data/models/balita.dart';
+
+import 'package:posyandu_app/app/data/models/ibu_hamil.dart';
 import 'package:posyandu_app/app/utils/constants.dart';
 import 'package:posyandu_app/app/utils/errors/exceptions.dart';
 import 'package:posyandu_app/app/utils/helpers/http_request_helper.dart';
 import 'package:intl/intl.dart';
 
-import '../models/history_baby.dart';
-
-class BalitaRepository {
+class IbuHamilRepository {
   static HttpRequestHelper server = HttpRequestHelper();
   static var datetimeFormat = DateFormat('dd-MM-yyyy');
-  Future<List<Balita>> getBalita(int id) async {
-    String url = '${Constanta.baseUrl}childrens/getByStaf/$id';
+  static Future<List<IbuHamil>> getIbuHamil(int id) async {
+    String url = '${Constanta.baseUrl}mothers/ibuHamilByStaf/$id';
     Map<String, String> headers = {'Accept': 'application/json'};
-    List<Balita> results = [];
+    List<IbuHamil> results = [];
     final response = await server.getRequest(
       url: url,
       headers: headers,
@@ -28,7 +27,7 @@ class BalitaRepository {
     }
     if (data['status']) {
       List datas = data['data'];
-      results = datas.map((e) => Balita.fromJson(e)).toList();
+      results = datas.map((e) => IbuHamil.fromJson(e)).toList();
       return results;
     } else {
       throw ServerException(
@@ -38,21 +37,16 @@ class BalitaRepository {
     }
   }
 
-  static Future<bool> tambahBalita(Balita balita, int stafId) async {
-    String url = '${Constanta.baseUrl}childrens/store';
-
+  static Future<bool> tambahIbuHamil(IbuHamil ibu, int stafId) async {
+    String url = '${Constanta.baseUrl}mothers/addIbuHamil';
     var headers = {'Accept': 'application/json'};
     var body = {
-      "child_name": balita.childName ?? "",
-      "birth_date": balita.birthDate!.toIso8601String(),
-      "weight": balita.weight,
-      "height": balita.height,
-      "gender": balita.gender,
-      "category": balita.category,
-      "id_staf": stafId,
-      "mother_name": balita.motherName,
-      "birth_place": balita.birthPlace,
-      "helper": balita.helper,
+      "id_ibu": ibu.idIbu,
+      "hamil_ke": ibu.hamilKe,
+      "umur_kehamilan": ibu.umurKehamilan,
+      "tempat_periksa": ibu.tempatPeriksa,
+      "haid_terakhir": ibu.haidTerakhir!.toIso8601String(),
+      "status_ekonomi": ibu.statusEkonomi ?? "",
     };
 
     bool results = false;
@@ -77,27 +71,21 @@ class BalitaRepository {
     }
   }
 
-  static Future<bool> ubahBalita(
-    Balita balita,
+  static Future<bool> ubahIbuHamil(
+    IbuHamil ibu,
     int stafId,
   ) async {
-    String url = '${Constanta.baseUrl}childrens/update';
-
+    String url = '${Constanta.baseUrl}mothers/updateIbuHamil';
     var headers = {'Accept': 'application/json'};
     var body = {
-      "id": balita.id,
-      "child_name": balita.childName ?? "",
-      "birth_date": balita.birthDate!.toIso8601String(),
-      "weight": balita.weight,
-      "height": balita.height,
-      "gender": balita.gender,
-      "category": balita.category,
-      "id_staf": stafId,
-      "mother_name": balita.motherName ?? "",
-      "birth_place": balita.birthPlace,
-      "helper": balita.helper,
+      "id": ibu.id,
+      "id_ibu": ibu.idIbu,
+      "hamil_ke": ibu.hamilKe,
+      "umur_kehamilan": ibu.umurKehamilan,
+      "tempat_periksa": ibu.tempatPeriksa,
+      "haid_terakhir": ibu.haidTerakhir!.toIso8601String(),
+      "status_ekonomi": ibu.statusEkonomi,
     };
-    print(body);
 
     bool results = false;
     final response =
@@ -121,8 +109,8 @@ class BalitaRepository {
     }
   }
 
-  static Future<bool> hapusBalita(int balitaId) async {
-    String url = '${Constanta.baseUrl}childrens/delete/$balitaId';
+  static Future<bool> hapusIbuHamil(int ibuId) async {
+    String url = '${Constanta.baseUrl}mothers/deleteIbuHamil/$ibuId';
     var headers = {'Accept': 'application/json'};
     bool results = false;
     final response = await server.deleteRequest(
@@ -141,36 +129,7 @@ class BalitaRepository {
       return results;
     } else {
       throw ServerException(
-        message: data['message'] ?? 'login Error',
-        code: response.statusCode,
-      );
-    }
-  }
-
-  //get history timbangan
-  Future<List<Historybaby>> getHistoryBalita(int id) async {
-    String url = '${Constanta.baseUrl}childrens/getRiwayatTimbangan/$id';
-    Map<String, String> headers = {'Accept': 'application/json'};
-    List<Historybaby> results = [];
-    final response = await server.getRequest(
-      url: url,
-      headers: headers,
-    );
-    Map<String, dynamic> data = json.decode(response.body);
-
-    if (data['status'] == null) {
-      throw ServerException(
-        message: 'Server Response Null, please contact Customer Service',
-        code: response.statusCode,
-      );
-    }
-    if (data['status']) {
-      List datas = data['data'];
-      results = datas.map((e) => Historybaby.fromJson(e)).toList();
-      return results;
-    } else {
-      throw ServerException(
-        message: data['message'] ?? 'gagal ngambil data Error',
+        message: data['message'] ?? 'Delete Error',
         code: response.statusCode,
       );
     }

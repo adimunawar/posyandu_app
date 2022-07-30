@@ -14,7 +14,7 @@ class HttpRequestHelper {
         address,
         headers: headers,
       )
-          .timeout(const Duration(seconds: 12), onTimeout: () {
+          .timeout(const Duration(seconds: 30), onTimeout: () {
         return httpRequestErrorHelper(
             httpMethod: 'DELETE', error: 'Koneksi keserver habis', url: url);
       });
@@ -36,7 +36,7 @@ class HttpRequestHelper {
         address,
         headers: headers,
       )
-          .timeout(const Duration(seconds: 12), onTimeout: () {
+          .timeout(const Duration(seconds: 30), onTimeout: () {
         return httpRequestErrorHelper(
             httpMethod: 'GET', error: 'Koneksi keserver habis', url: url);
       });
@@ -100,7 +100,7 @@ class HttpRequestHelper {
     try {
       return await http
           .put(address, headers: headers, body: jsonEncode(body))
-          .timeout(const Duration(seconds: 12), onTimeout: () {
+          .timeout(const Duration(seconds: 30), onTimeout: () {
         return httpRequestErrorHelper(
             httpMethod: 'PUT', error: 'Koneksi keserver habis', url: url);
       });

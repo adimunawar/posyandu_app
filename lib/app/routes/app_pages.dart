@@ -6,6 +6,10 @@ import '../modules/balita/bindings/balita_binding.dart';
 import '../modules/balita/views/balita_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/ibu/bindings/ibu_binding.dart';
+import '../modules/ibu/views/ibu_view.dart';
+import '../modules/ibu_hamil/bindings/ibu_hamil_binding.dart';
+import '../modules/ibu_hamil/views/ibu_hamil_view.dart';
 
 // ignore_for_file: constant_identifier_names
 
@@ -31,6 +35,16 @@ class AppPages {
       name: _Paths.BALITA,
       page: () => BalitaView(),
       binding: BalitaBinding(),
+    ),
+    GetPage(
+      name: _Paths.IBU,
+      page: () => IbuView(),
+      binding: IbuBinding(),
+    ),
+    GetPage(
+      name: _Paths.IBU_HAMIL,
+      page: () => IbuHamilView(),
+      binding: IbuHamilBinding(),
     ),
   ];
 }

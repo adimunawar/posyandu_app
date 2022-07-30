@@ -8,6 +8,8 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const AUTHENTICATION = _Paths.AUTHENTICATION;
   static const BALITA = _Paths.BALITA;
+  static const IBU = _Paths.IBU;
+  static const IBU_HAMIL = _Paths.IBU_HAMIL;
 }
 
 abstract class _Paths {
@@ -15,4 +17,6 @@ abstract class _Paths {
   static const HOME = '/home';
   static const AUTHENTICATION = '/authentication';
   static const BALITA = '/balita';
+  static const IBU = '/ibu';
+  static const IBU_HAMIL = '/ibu-hamil';
 }

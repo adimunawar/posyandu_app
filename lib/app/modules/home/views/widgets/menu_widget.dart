@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:posyandu_app/app/modules/balita/views/balita_view.dart';
+import 'package:posyandu_app/app/modules/timbangan/views/timbangan_view.dart';
 import 'package:posyandu_app/app/utils/theme/fonts_style.dart';
 
 import '../../../ibu/views/ibu_view.dart';
@@ -52,7 +53,9 @@ class MenuWidget extends StatelessWidget {
                 title: 'Ibu Hamil',
               ),
               ItemMenuCard(
-                onTap: () {},
+                onTap: () {
+                  Get.to(TimbanganView());
+                },
                 imagePath: 'assets/images/mother.png',
                 title: 'Penimbangan',
               ),

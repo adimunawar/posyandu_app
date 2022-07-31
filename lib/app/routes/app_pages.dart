@@ -10,6 +10,8 @@ import '../modules/ibu/bindings/ibu_binding.dart';
 import '../modules/ibu/views/ibu_view.dart';
 import '../modules/ibu_hamil/bindings/ibu_hamil_binding.dart';
 import '../modules/ibu_hamil/views/ibu_hamil_view.dart';
+import '../modules/timbangan/bindings/timbangan_binding.dart';
+import '../modules/timbangan/views/timbangan_view.dart';
 
 // ignore_for_file: constant_identifier_names
 
@@ -45,6 +47,11 @@ class AppPages {
       name: _Paths.IBU_HAMIL,
       page: () => IbuHamilView(),
       binding: IbuHamilBinding(),
+    ),
+    GetPage(
+      name: _Paths.TIMBANGAN,
+      page: () => TimbanganView(),
+      binding: TimbanganBinding(),
     ),
   ];
 }

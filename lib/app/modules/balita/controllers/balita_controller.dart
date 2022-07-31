@@ -20,9 +20,9 @@ class BalitaController extends GetxController {
   }
 
 //gethistory balita
-  Future<List<Historybaby>> getHistoryBalita(int idBalita) async {
-    List<Historybaby> results = [];
-    await BalitaRepository().getHistoryBalita(idBalita).then((value) {
+  Future<List<Balita>> getHistoryBalita(int idBalita) async {
+    List<Balita> results = [];
+    await BalitaRepository().getListTimbangan(idBalita).then((value) {
       if (value.isNotEmpty) {
         results.clear();
         results.addAll(value);

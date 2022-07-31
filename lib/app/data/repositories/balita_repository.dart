@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:posyandu_app/app/data/models/balita.dart';
+import 'package:posyandu_app/app/data/models/timbangan.dart';
 import 'package:posyandu_app/app/utils/constants.dart';
 import 'package:posyandu_app/app/utils/errors/exceptions.dart';
 import 'package:posyandu_app/app/utils/helpers/http_request_helper.dart';
@@ -97,7 +98,6 @@ class BalitaRepository {
       "birth_place": balita.birthPlace,
       "helper": balita.helper,
     };
-    print(body);
 
     bool results = false;
     final response =
@@ -147,11 +147,40 @@ class BalitaRepository {
     }
   }
 
-  //get history timbangan
-  Future<List<Historybaby>> getHistoryBalita(int id) async {
-    String url = '${Constanta.baseUrl}childrens/getRiwayatTimbangan/$id';
+  // //get history timbangan
+  // Future<List<Historybaby>> getHistoryBalita(int id) async {
+  //   String url = '${Constanta.baseUrl}childrens/getRiwayatTimbangan/$id';
+  //   Map<String, String> headers = {'Accept': 'application/json'};
+  //   List<Historybaby> results = [];
+  //   final response = await server.getRequest(
+  //     url: url,
+  //     headers: headers,
+  //   );
+  //   Map<String, dynamic> data = json.decode(response.body);
+
+  //   if (data['status'] == null) {
+  //     throw ServerException(
+  //       message: 'Server Response Null, please contact Customer Service',
+  //       code: response.statusCode,
+  //     );
+  //   }
+  //   if (data['status']) {
+  //     List datas = data['data'];
+  //     results = datas.map((e) => Historybaby.fromJson(e)).toList();
+  //     return results;
+  //   } else {
+  //     throw ServerException(
+  //       message: data['message'] ?? 'gagal ngambil data Error',
+  //       code: response.statusCode,
+  //     );
+  //   }
+  // }
+
+  //getlist timbangan
+  Future<List<Balita>> getListTimbangan(int id) async {
+    String url = '${Constanta.baseUrl}childrens/getListTimbangan/$id';
     Map<String, String> headers = {'Accept': 'application/json'};
-    List<Historybaby> results = [];
+    List<Balita> results = [];
     final response = await server.getRequest(
       url: url,
       headers: headers,
@@ -166,11 +195,40 @@ class BalitaRepository {
     }
     if (data['status']) {
       List datas = data['data'];
-      results = datas.map((e) => Historybaby.fromJson(e)).toList();
+      results = datas.map((e) => Balita.fromJson(e)).toList();
       return results;
     } else {
       throw ServerException(
-        message: data['message'] ?? 'gagal ngambil data Error',
+        message: data['message'] ?? 'login Error',
+        code: response.statusCode,
+      );
+    }
+  }
+
+  //getlist riwayat timbangan
+  Future<List<Timbangan>> getRiwayatTimbangan(int idBalita) async {
+    String url = '${Constanta.baseUrl}childrens/getRiwayatTimbangan/$idBalita';
+    Map<String, String> headers = {'Accept': 'application/json'};
+    List<Timbangan> results = [];
+    final response = await server.getRequest(
+      url: url,
+      headers: headers,
+    );
+    Map<String, dynamic> data = json.decode(response.body);
+
+    if (data['status'] == null) {
+      throw ServerException(
+        message: 'Server Response Null, please contact Customer Service',
+        code: response.statusCode,
+      );
+    }
+    if (data['status']) {
+      List datas = data['data'];
+      results = datas.map((e) => Timbangan.fromJson(e)).toList();
+      return results;
+    } else {
+      throw ServerException(
+        message: data['message'] ?? 'login Error',
         code: response.statusCode,
       );
     }

@@ -10,6 +10,7 @@ abstract class Routes {
   static const BALITA = _Paths.BALITA;
   static const IBU = _Paths.IBU;
   static const IBU_HAMIL = _Paths.IBU_HAMIL;
+  static const TIMBANGAN = _Paths.TIMBANGAN;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const BALITA = '/balita';
   static const IBU = '/ibu';
   static const IBU_HAMIL = '/ibu-hamil';
+  static const TIMBANGAN = '/timbangan';
 }

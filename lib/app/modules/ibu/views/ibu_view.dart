@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/ibu.dart';
+import '../../home/views/home_view.dart';
 import '../controllers/ibu_controller.dart';
 import 'detail_ibu_view.dart';
 import 'form_ibu_view.dart';
@@ -15,6 +16,9 @@ class IbuView extends GetView<IbuController> {
     final controller = IbuController();
     return Scaffold(
       appBar: AppBar(
+        leading: InkWell(
+            onTap: () => Get.off(const HomeView()),
+            child: const Icon(Icons.arrow_back)),
         title: const Text('Kelola Ibu'),
         centerTitle: true,
       ),

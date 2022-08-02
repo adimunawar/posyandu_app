@@ -1,11 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:posyandu_app/app/data/models/balita.dart';
 import 'package:posyandu_app/app/modules/balita/views/detail_balita_view.dart';
 import 'package:posyandu_app/app/modules/balita/views/form_balita_view.dart';
+import 'package:posyandu_app/app/modules/home/views/home_view.dart';
+import 'package:posyandu_app/app/utils/age_calculator.dart';
 
 import '../controllers/balita_controller.dart';
 
@@ -26,6 +25,9 @@ class BalitaView extends GetView<BalitaController> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
+        leading: InkWell(
+            onTap: () => Get.off(const HomeView()),
+            child: const Icon(Icons.arrow_back)),
         title: const Text("Kelola Balita"),
         centerTitle: true,
       ),
@@ -51,7 +53,10 @@ class BalitaView extends GetView<BalitaController> {
                         margin:
                             const EdgeInsets.only(top: 8, left: 8, right: 8),
                         child: ListTile(
-                          leading: Text(snapshot.data![index].childName!),
+                          leading: const Icon(Icons.child_care),
+                          title: Text(snapshot.data![index].childName!),
+                          trailing: Text(AgeCalculator.calculateAge(
+                              snapshot.data![index].birthDate!)),
                         ),
                       ),
                     )));

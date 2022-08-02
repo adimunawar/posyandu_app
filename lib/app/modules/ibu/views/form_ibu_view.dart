@@ -157,7 +157,7 @@ class _FormIbuViewState extends State<FormIbuView> {
                             if (value) {
                               Future.delayed(const Duration(seconds: 3), () {
                                 hideLoading();
-                                Get.off(const IbuView());
+                                Get.offAll(const IbuView());
                               });
                             }
                           });
@@ -166,7 +166,7 @@ class _FormIbuViewState extends State<FormIbuView> {
                             if (value) {
                               Future.delayed(const Duration(milliseconds: 1500),
                                   () {
-                                Get.to(const IbuView());
+                                Get.offAll(const IbuView());
                               });
                             }
                           });
@@ -198,6 +198,4 @@ class _FormIbuViewState extends State<FormIbuView> {
           ),
         ));
   }
-
-  void onSave() async {}
 }

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:posyandu_app/app/data/models/balita.dart';
-import 'package:posyandu_app/app/modules/balita/controllers/balita_controller.dart';
-import 'package:posyandu_app/app/modules/balita/views/balita_view.dart';
-import 'package:posyandu_app/app/modules/balita/views/form_balita_view.dart';
+
 import 'package:posyandu_app/app/modules/ibu/views/ibu_view.dart';
 import 'package:posyandu_app/app/utils/helpers/dialog_helper.dart';
 
@@ -109,7 +106,7 @@ class DetailIbuView extends GetView {
                   onTap: () {
                     controller.hapusIbu(ibu.id!).then((value) {
                       if (value) {
-                        Get.to(const IbuView());
+                        Get.offAll(const IbuView());
                       }
                     });
                   },

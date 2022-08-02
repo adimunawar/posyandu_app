@@ -219,7 +219,7 @@ class _FormBalitaViewState extends State<FormBalitaView> {
                           Get.to(const BalitaView());
                           balitaController.tambahBalita(balita!).then((value) {
                             if (value) {
-                              Get.to(const BalitaView());
+                              Get.offAll(const BalitaView());
                             }
                           });
                         }
@@ -250,6 +250,4 @@ class _FormBalitaViewState extends State<FormBalitaView> {
           ),
         ));
   }
-
-  void onSave() async {}
 }

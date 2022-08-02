@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:http/http.dart';
+
 import 'package:intl/intl.dart';
 import 'package:posyandu_app/app/data/models/balita.dart';
 import 'package:posyandu_app/app/data/models/timbangan.dart';
 import 'package:posyandu_app/app/modules/timbangan/controllers/timbangan_controller.dart';
+import 'package:posyandu_app/app/utils/age_calculator.dart';
 import 'package:posyandu_app/app/utils/theme/fonts_style.dart';
 
 class DetailTimbanganView extends GetView<TimbanganController> {
@@ -15,45 +16,96 @@ class DetailTimbanganView extends GetView<TimbanganController> {
   @override
   Widget build(BuildContext context) {
     final controller = TimbanganController();
-    final tanggalFormat = DateFormat('dd/MM/yyyy');
+    final tanggalFormat = DateFormat(
+      'dd/MM/yyyy',
+    );
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text(
           balita.childName!,
-          style: primaryTextStyle,
+          style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
         ),
         centerTitle: true,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Column(
-              children: [
-                ListTile(
-                  title: Text(
-                    "Nama Balita",
-                    style: primaryTextStyle,
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Nama Balita",
+                        style: primaryTextStyle,
+                      ),
+                      Text(
+                        balita.childName ?? "",
+                        style: primaryTextStyle,
+                      ),
+                    ],
                   ),
-                  trailing: Text(balita.childName ?? ""),
-                ),
-                ListTile(
-                  title: Text("Tanggal Lahir", style: primaryTextStyle),
-                  trailing: Text(tanggalFormat.format(balita.birthDate!),
-                      style: primaryTextStyle),
-                ),
-                ListTile(
-                  title: Text("Nama Ortu", style: primaryTextStyle),
-                  trailing: Text(balita.motherName!, style: primaryTextStyle),
-                ),
-              ],
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Tanggal Lahir",
+                        style: primaryTextStyle,
+                      ),
+                      Text(tanggalFormat.format(balita.birthDate!),
+                          style: primaryTextStyle)
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Umur",
+                        style: primaryTextStyle,
+                      ),
+                      Text(AgeCalculator.calculateAge(balita.birthDate!))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Nama Ortu",
+                        style: primaryTextStyle,
+                      ),
+                      Text(balita.motherName!, style: primaryTextStyle)
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-          Text(
-            "Riwayat Timbangan",
-            style: primaryTextStyle,
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: Text(
+              "Riwayat Timbangan",
+              style: primaryTextStyle.copyWith(fontWeight: semiBold),
+            ),
           ),
-          // lis timbangan
+          // list timbangan
           FutureBuilder<List<Timbangan>>(
               future: controller.getRiwayatTimbangan(balita.id!),
               builder: (context, snapshot) {
@@ -76,10 +128,60 @@ class DetailTimbanganView extends GetView<TimbanganController> {
                             child: Card(
                               margin: const EdgeInsets.only(
                                   top: 8, left: 8, right: 8),
-                              child: ListTile(
-                                leading: Text(
-                                  "${snapshot.data![index].bb}",
-                                  style: primaryTextStyle,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Tanggal Timbang:",
+                                          style: primaryTextStyle,
+                                        ),
+                                        Text(
+                                          tanggalFormat.format(
+                                              snapshot.data![index].createdAt!),
+                                          style: primaryTextStyle,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Berat Badan:",
+                                          style: primaryTextStyle,
+                                        ),
+                                        Text(
+                                          "${snapshot.data![index].bb} Kg",
+                                          style: primaryTextStyle,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Tinggi Badan:",
+                                          style: primaryTextStyle,
+                                        ),
+                                        Text(
+                                          "${snapshot.data![index].tb} Cm",
+                                          style: primaryTextStyle,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

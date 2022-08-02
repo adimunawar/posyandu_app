@@ -26,10 +26,19 @@ class HeaderWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Selamat datang ${Constanta.user.name}",
-                  style: primaryTextStyle.copyWith(
-                      fontSize: 16, fontWeight: medium, color: Colors.white),
+                Row(
+                  children: [
+                    Text(
+                      "Selamat datang, ",
+                      style: primaryTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: medium,
+                          color: Colors.white),
+                    ),
+                    Text("${Constanta.user.name}",
+                        style: primaryTextStyle.copyWith(
+                            fontSize: 16, color: Colors.white))
+                  ],
                 ),
                 InkWell(
                   onTap: () {},
@@ -62,10 +71,21 @@ class HeaderWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,
                           ),
-                          child: Column(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("${Constanta.user.dataKader!.totalBalita}"),
-                              const Text("Balita")
+                              Text(
+                                "${Constanta.user.dataKader!.totalBalita}",
+                                style: primaryTextStyle.copyWith(
+                                    fontWeight: semiBold),
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text(
+                                "Balita",
+                                style: primaryTextStyle.copyWith(fontSize: 16),
+                              )
                             ],
                           ),
                         ),
@@ -81,10 +101,18 @@ class HeaderWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,
                           ),
-                          child: Column(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("${Constanta.user.dataKader!.totalIbu}"),
-                              const Text("Ibu Hamil")
+                              Text("${Constanta.user.dataKader!.totalIbu}",
+                                  style: primaryTextStyle.copyWith(
+                                      fontWeight: semiBold)),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text("Ibu Hamil",
+                                  style:
+                                      primaryTextStyle.copyWith(fontSize: 16))
                             ],
                           ),
                         ),

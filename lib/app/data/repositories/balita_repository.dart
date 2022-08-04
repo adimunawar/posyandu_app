@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:posyandu_app/app/data/models/balita.dart';
+import 'package:posyandu_app/app/data/models/imunisasi.dart';
 import 'package:posyandu_app/app/data/models/timbangan.dart';
 import 'package:posyandu_app/app/utils/constants.dart';
 import 'package:posyandu_app/app/utils/errors/exceptions.dart';
@@ -205,6 +206,35 @@ class BalitaRepository {
     }
   }
 
+  //getlist imunisasi
+  Future<List<Balita>> getListImunisasi(int id) async {
+    String url = '${Constanta.baseUrl}childrens/getListImunisasi/$id';
+    Map<String, String> headers = {'Accept': 'application/json'};
+    List<Balita> results = [];
+    final response = await server.getRequest(
+      url: url,
+      headers: headers,
+    );
+    Map<String, dynamic> data = json.decode(response.body);
+
+    if (data['status'] == null) {
+      throw ServerException(
+        message: 'Server Response Null, please contact Customer Service',
+        code: response.statusCode,
+      );
+    }
+    if (data['status']) {
+      List datas = data['data'];
+      results = datas.map((e) => Balita.fromJson(e)).toList();
+      return results;
+    } else {
+      throw ServerException(
+        message: data['message'] ?? 'login Error',
+        code: response.statusCode,
+      );
+    }
+  }
+
   //getlist riwayat timbangan
   Future<List<Timbangan>> getRiwayatTimbangan(int idBalita) async {
     String url = '${Constanta.baseUrl}childrens/getRiwayatTimbangan/$idBalita';
@@ -225,6 +255,35 @@ class BalitaRepository {
     if (data['status']) {
       List datas = data['data'];
       results = datas.map((e) => Timbangan.fromJson(e)).toList();
+      return results;
+    } else {
+      throw ServerException(
+        message: data['message'] ?? 'login Error',
+        code: response.statusCode,
+      );
+    }
+  }
+
+  //getlist riwayat timbangan
+  Future<List<Imunisasi>> getRiwayatImunisasi(int idBalita) async {
+    String url = '${Constanta.baseUrl}childrens/getDetailImunisasi/$idBalita';
+    Map<String, String> headers = {'Accept': 'application/json'};
+    List<Imunisasi> results = [];
+    final response = await server.getRequest(
+      url: url,
+      headers: headers,
+    );
+    Map<String, dynamic> data = json.decode(response.body);
+
+    if (data['status'] == null) {
+      throw ServerException(
+        message: 'Server Response Null, please contact Customer Service',
+        code: response.statusCode,
+      );
+    }
+    if (data['status']) {
+      List datas = data['data'];
+      results = datas.map((e) => Imunisasi.fromJson(e)).toList();
       return results;
     } else {
       throw ServerException(

@@ -6,6 +6,7 @@ import 'package:posyandu_app/app/utils/theme/fonts_style.dart';
 
 import '../../../ibu/views/ibu_view.dart';
 import '../../../ibu_hamil/views/ibu_hamil_view.dart';
+import '../../../imunisasi/views/imunisasi_view.dart';
 
 class MenuWidget extends StatelessWidget {
   const MenuWidget({Key? key}) : super(key: key);
@@ -54,13 +55,15 @@ class MenuWidget extends StatelessWidget {
               ),
               ItemMenuCard(
                 onTap: () {
-                  Get.to(TimbanganView());
+                  Get.to(const TimbanganView());
                 },
                 imagePath: 'assets/images/mother.png',
                 title: 'Penimbangan',
               ),
               ItemMenuCard(
-                onTap: () {},
+                onTap: () {
+                  Get.to(ImunisasiView());
+                },
                 imagePath: 'assets/images/injection.png',
                 title: 'Imunisasi',
               ),

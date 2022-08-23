@@ -12,6 +12,8 @@ import '../modules/ibu_hamil/bindings/ibu_hamil_binding.dart';
 import '../modules/ibu_hamil/views/ibu_hamil_view.dart';
 import '../modules/imunisasi/bindings/imunisasi_binding.dart';
 import '../modules/imunisasi/views/imunisasi_view.dart';
+import '../modules/jadwal/bindings/jadwal_binding.dart';
+import '../modules/jadwal/views/jadwal_view.dart';
 import '../modules/timbangan/bindings/timbangan_binding.dart';
 import '../modules/timbangan/views/timbangan_view.dart';
 
@@ -59,6 +61,11 @@ class AppPages {
       name: _Paths.IMUNISASI,
       page: () => ImunisasiView(),
       binding: ImunisasiBinding(),
+    ),
+    GetPage(
+      name: _Paths.JADWAL,
+      page: () => JadwalView(),
+      binding: JadwalBinding(),
     ),
   ];
 }

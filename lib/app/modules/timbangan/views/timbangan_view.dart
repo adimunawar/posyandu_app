@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:posyandu_app/app/data/models/balita.dart';
 import 'package:posyandu_app/app/modules/timbangan/views/detail_timbangan_view.dart';
+import 'package:posyandu_app/app/modules/timbangan/views/form_register_timbangan_view.dart';
 import 'package:posyandu_app/app/utils/theme/fonts_style.dart';
+import '../../home/views/home_view.dart';
 import '../controllers/timbangan_controller.dart';
 
 class TimbanganView extends GetView<TimbanganController> {
@@ -12,7 +14,16 @@ class TimbanganView extends GetView<TimbanganController> {
   Widget build(BuildContext context) {
     final controller = TimbanganController();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(const FormRegisterTimbanganView());
+        },
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
+        leading: InkWell(
+            onTap: () => Get.off(const HomeView()),
+            child: const Icon(Icons.arrow_back)),
         title: Text(
           'Kelola Timbangan',
           style: primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 16),
@@ -30,7 +41,6 @@ class TimbanganView extends GetView<TimbanganController> {
                 child: Text("data kosong"),
               );
             }
-
             return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: ((context, index) => InkWell(

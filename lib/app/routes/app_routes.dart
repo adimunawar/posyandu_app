@@ -12,6 +12,7 @@ abstract class Routes {
   static const IBU_HAMIL = _Paths.IBU_HAMIL;
   static const TIMBANGAN = _Paths.TIMBANGAN;
   static const IMUNISASI = _Paths.IMUNISASI;
+  static const JADWAL = _Paths.JADWAL;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const IBU_HAMIL = '/ibu-hamil';
   static const TIMBANGAN = '/timbangan';
   static const IMUNISASI = '/imunisasi';
+  static const JADWAL = '/jadwal';
 }

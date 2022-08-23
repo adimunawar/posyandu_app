@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:posyandu_app/app/modules/balita/views/balita_view.dart';
+import 'package:posyandu_app/app/modules/home/views/info_app_view.dart';
+import 'package:posyandu_app/app/modules/home/views/info_imunisasi_view.dart';
+import 'package:posyandu_app/app/modules/home/views/notifikasi_view.dart';
+import 'package:posyandu_app/app/modules/home/views/user_guide_view.dart';
+import 'package:posyandu_app/app/modules/jadwal/views/jadwal_view.dart';
 import 'package:posyandu_app/app/modules/timbangan/views/timbangan_view.dart';
 import 'package:posyandu_app/app/utils/theme/fonts_style.dart';
 
@@ -19,10 +24,10 @@ class MenuWidget extends StatelessWidget {
         children: [
           Text(
             "Menu",
-            style: primaryTextStyle.copyWith(fontWeight: bold),
+            style: primaryTextStyle.copyWith(fontWeight: bold, fontSize: 16),
           ),
           const SizedBox(
-            height: 12,
+            height: 16,
           ),
           Wrap(
             alignment: WrapAlignment.start,
@@ -32,61 +37,88 @@ class MenuWidget extends StatelessWidget {
             crossAxisAlignment: WrapCrossAlignment.start,
             runAlignment: WrapAlignment.start,
             children: [
-              ItemMenuCard(
-                onTap: () {
-                  Get.to(const BalitaView());
-                },
-                imagePath: 'assets/images/baby.png',
-                title: 'Balita',
-              ),
-              ItemMenuCard(
-                onTap: () {
-                  Get.to(const IbuView());
-                },
-                imagePath: 'assets/images/mother_2.png',
-                title: 'Ibu',
-              ),
-              ItemMenuCard(
-                onTap: () {
-                  Get.to(const IbuHamilView());
-                },
-                imagePath: 'assets/images/pregnant.png',
-                title: 'Ibu Hamil',
-              ),
-              ItemMenuCard(
-                onTap: () {
-                  Get.to(const TimbanganView());
-                },
-                imagePath: 'assets/images/mother.png',
-                title: 'Penimbangan',
-              ),
-              ItemMenuCard(
-                onTap: () {
-                  Get.to(ImunisasiView());
-                },
-                imagePath: 'assets/images/injection.png',
-                title: 'Imunisasi',
-              ),
-              ItemMenuCard(
-                onTap: () {},
-                imagePath: 'assets/images/baby-food.png',
-                title: 'Gizi',
-              ),
               // ItemMenuCard(
-              //   onTap: () {},
+              //   onTap: () {
+              //     Get.to(const BalitaView());
+              //   },
               //   imagePath: 'assets/images/baby.png',
               //   title: 'Balita',
               // ),
               // ItemMenuCard(
-              //   onTap: () {},
+              //   onTap: () {
+              //     Get.to(const IbuView());
+              //   },
+              //   imagePath: 'assets/images/mother_2.png',
+              //   title: 'Ibu',
+              // ),
+              // ItemMenuCard(
+              //   onTap: () {
+              //     Get.to(const IbuHamilView());
+              //   },
+              //   imagePath: 'assets/images/pregnant.png',
+              //   title: 'Ibu Hamil',
+              // ),
+              // ItemMenuCard(
+              //   onTap: () {
+              //     Get.to(const TimbanganView());
+              //   },
               //   imagePath: 'assets/images/mother.png',
-              //   title: 'Balita',
+              //   title: 'Penimbangan',
+              // ),
+              // ItemMenuCard(
+              //   onTap: () {
+              //     Get.to(const ImunisasiView());
+              //   },
+              //   imagePath: 'assets/images/injection.png',
+              //   title: 'Imunisasi',
               // ),
               // ItemMenuCard(
               //   onTap: () {},
-              //   imagePath: 'assets/images/mother_2.png',
-              //   title: 'Balita',
+              //   imagePath: 'assets/images/baby-food.png',
+              //   title: 'Gizi',
               // ),
+              ItemMenuCard(
+                onTap: () {
+                  Get.to(const UserGuideView());
+                },
+                imagePath: 'assets/images/user_guide.png',
+                title: 'Penggunaan',
+              ),
+              ItemMenuCard(
+                onTap: () {
+                  Get.to(const UserGuideView());
+                },
+                imagePath: 'assets/images/add_event.png',
+                title: 'Buat Jadwal',
+              ),
+              ItemMenuCard(
+                onTap: () {
+                  Get.to(JadwalView());
+                },
+                imagePath: 'assets/images/timetable.png',
+                title: 'Jadwal Imunisasi',
+              ),
+              ItemMenuCard(
+                onTap: () {
+                  Get.to(InfoImunisasiView());
+                },
+                imagePath: 'assets/images/guide_book.png',
+                title: 'Info Imunisisasi',
+              ),
+              ItemMenuCard(
+                onTap: () {
+                  Get.to(NotifikasiView());
+                },
+                imagePath: 'assets/images/notification.png',
+                title: 'Notifikasi',
+              ),
+              ItemMenuCard(
+                onTap: () {
+                  Get.to(InfoAppView());
+                },
+                imagePath: 'assets/images/smartphone.png',
+                title: 'Tentang Aplikasi',
+              ),
             ],
           ),
         ],
@@ -138,7 +170,7 @@ class ItemMenuCard extends StatelessWidget {
               width: 80,
               child: Text(
                 title,
-                style: primaryTextStyle,
+                style: primaryTextStyle.copyWith(fontSize: 13),
                 maxLines: 3,
                 textAlign: TextAlign.center,
               ),
